@@ -71,7 +71,7 @@
 						notInitial=false;
 					}
 				});
-			}, 500);1
+			}, 500);
 
 
 			if(ngModel != undefined){
