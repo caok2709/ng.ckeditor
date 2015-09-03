@@ -46,8 +46,8 @@
 			if (attrs.height != undefined) {
 				config.height = attrs.height;
 			}
-			if (attrs.notiForm != undefined){
-
+			if (attrs.startupFocus != undefined){
+				config.startupFocus=(attrs.startupFocus =="false")?false:true;
 			}
 
 			if (attrs.resizeEnabled != undefined) {
