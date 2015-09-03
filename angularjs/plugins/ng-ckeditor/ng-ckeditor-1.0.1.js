@@ -49,7 +49,6 @@
 			if (attrs.startupFocus != undefined){
 				config.startupFocus=(attrs.startupFocus =="false")?false:true;
 			}
-
 			if (attrs.resizeEnabled != undefined) {
 				config.resize_enabled=(attrs.resizeEnabled =="false")?false:true;
 			}
