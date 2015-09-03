@@ -10,7 +10,7 @@
     "web"
   ],
   "homepage": "https://github.com/miamarti/ng.ckeditor",
-  "main": "angularjs/plugins/ng-ckeditor/ng-ckeditor-1.0.1.min.js",
+  "main": "angularjs/plugins/ng-ckeditor/ng-ckeditor-1.0.1.js",
   "ignore": [
     "/.*",
     "**/.*",
