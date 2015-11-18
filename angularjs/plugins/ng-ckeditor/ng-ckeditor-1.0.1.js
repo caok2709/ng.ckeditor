@@ -12,7 +12,8 @@
 
 		CKEDITOR.on('instanceCreated', function(event) {
 			var editor = event.editor, element = editor.element;
-			if (element.getAttribute('class') == 'simpleEditor') {
+			editor.config.skin = "office2013";
+			if (element&&  element.getAttribute('class') && element.getAttribute('class').indexOf('simpleEditor')!=-1 ) {
 				editor.on('configLoaded', function() {
 					editor.config.removePlugins = 'colorbutton,find,flash,font, forms,iframe,image,newpage,removeformat, smiley,specialchar,stylescombo,templates';
 					editor.removeButtons = 'About';
