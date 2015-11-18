@@ -1,8 +1,8 @@
 /*
  * autor: Miller Augusto S. Martins
  * editor: Kuan Cao
- * edit time: 8-5-2015 7.07PM
- * last edit tiem: 9-3-2015 12:40PM
+ * First edit time: 8-5-2015 7.07PM
+ * Last edit tiem: 11-18-2015 4:25PM
  * e-mail: miller.augusto@gmail.com
  * github: miamarti
  * */
@@ -12,26 +12,26 @@
 
 		CKEDITOR.on('instanceCreated', function(event) {
 			var editor = event.editor, element = editor.element;
-			editor.config.skin = "office2013";
 			if (element&&  element.getAttribute('class') && element.getAttribute('class').indexOf('simpleEditor')!=-1 ) {
 				editor.on('configLoaded', function() {
-					editor.config.removePlugins = 'colorbutton,find,flash,font, forms,iframe,image,newpage,removeformat, smiley,specialchar,stylescombo,templates';
-					editor.removeButtons = 'About';
-					editor.config.toolbarGroups = [ {
-						name : 'editing',
-						groups : [ 'basicstyles', 'links' ]
-					}, {
-						name : 'undo'
-					}, {
-						name : 'clipboard',
-						groups : [ 'selection', 'clipboard' ]
-					} ];
+					//editor.config.removePlugins = 'colorbutton,find,flash,font, forms,iframe,image,newpage,removeformat, smiley,specialchar,stylescombo,templates';
+					//editor.removeButtons = 'About';
+					editor.config.toolbarGroups = [
+						{name : 'basicstyles',	groups : [ 'basicstyles','cleanup']},
+						{name : 'paragraph',	groups: [ 'list', 'indent' ] },
+						{name : 'styles'},
+						{name : 'clipboard',	groups : [ 'clipboard','undo' ]},
+						{name : 'links'},
+						{name : 'insert'}
+					]
+					editor.config.removePlugins ='horizontalrule,specialchar';
+					editor.config.removeButtons='Strike,Subscript,Superscript,Anchor,Format';
 				});
 			}
 		});
 
 		var container = function(scope, element, attrs, ngModel) {
-			element[0].innerHTML = '<div id="' + attrs.bind + '"></div> <div class="totalTypedCharacters"></div>';
+			element[0].innerHTML = '<div id="' + attrs.bind + '"></div>';
 			var config = {
 				removeButtons : (attrs.removeButtons != undefined) ? 'About,' + attrs.removeButtons : 'About'
 			};
@@ -40,6 +40,9 @@
 			}
 			if (attrs.skin != undefined) {
 				config.skin = attrs.skin;
+			}
+			if (attrs.resizeDir != undefined) {
+				config.resize_dir = attrs.resizeDir;
 			}
 			if (attrs.width != undefined) {
 				config.width = attrs.width;
@@ -53,40 +56,14 @@
 			if (attrs.resizeEnabled != undefined) {
 				config.resize_enabled=(attrs.resizeEnabled =="false")?false:true;
 			}
-			setTimeout(function() {
-				var editor = CKEDITOR.appendTo(attrs.bind, config, ''),
-					notInitial=true;
-				(editor).on('change', function(evt) {
-					eval('(function(){ scope.' + attrs.bind + ' = evt.editor.getData(); })()');
-					if (attrs.msnCount != undefined) {
-						element[0].querySelector('.totalTypedCharacters').innerHTML = attrs.msnCount + " " + evt.editor.getData().length;
-					}
-				});
-				(editor).on('focus',function(evt){
-					eval('(function(){ editor.setData(scope.' + attrs.bind + ')})()');
-				});
-				scope.$watch(attrs.bind, function(value) {
-					if(value && notInitial){
-						editor.setData( value);
-						notInitial=false;
-					}
-				});
-			}, 500);
-
 
 			if(ngModel != undefined){
-				var ck = CKEDITOR.replace(element[0]);
-
-				ck.on('instanceReady', function() {
-					ck.setData(ngModel.$viewValue);
-				});
-
-				ck.on('pasteState', function() {
+				var ck = CKEDITOR.replace(element[0],config);
+				ck.on('change', function() {
 					scope.$apply(function() {
 						ngModel.$setViewValue(ck.getData());
 					});
 				});
-
 				ngModel.$render = function(value) {
 					ck.setData(ngModel.$modelValue);
 				};
