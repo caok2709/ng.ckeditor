@@ -60,9 +60,7 @@
 			if(ngModel != undefined){
 				var ck = CKEDITOR.replace(element[0],config);
 				ck.on('change', function() {
-					scope.$apply(function() {
-						ngModel.$setViewValue(ck.getData());
-					});
+					ngModel.$setViewValue(ck.getData());
 				});
 				ngModel.$render = function(value) {
 					ck.setData(ngModel.$modelValue);
