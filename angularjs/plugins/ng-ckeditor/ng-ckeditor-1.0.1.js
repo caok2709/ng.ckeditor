@@ -26,6 +26,10 @@
 					]
 					editor.config.removePlugins ='horizontalrule,specialchar';
 					editor.config.removeButtons='Strike,Subscript,Superscript,Anchor,Format';
+
+					if(element.getAttribute('disabled')==='true'){
+						editor.config.readOnly = true;
+					}
 				});
 			}
 		});
