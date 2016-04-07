@@ -21,6 +21,6 @@
   ],
   "dependencies": {
     "jquery": ">= 1.9.1",
-    "ckeditor" : "https://github.com/caok2709/ckeditor-releases.git#ckeditor_4_5_5_office2013"
+    "ckeditor" : "https://github.com/caok2709/ckeditor-releases.git#ckeditor_4_5_8_office2013"
   }
 }
