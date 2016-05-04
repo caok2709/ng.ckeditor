@@ -16,7 +16,7 @@
 			}
 
 			scope.ckeditor =  CKEDITOR;
-			element[0].innerHTML = '<div id="' + attrs.bind + '"></div>';
+			element[0].innerHTML = "<div id='" + attrs.bind + "'></div>";
 
 			var config = {
 				removeButtons : (attrs.removeButtons != undefined) ? 'About,' + attrs.removeButtons : 'About'
